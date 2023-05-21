@@ -5,6 +5,9 @@ using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Abstract;
 using Core.DataAccess;
+using Business.Abstract;
+using Business.Concrete;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -12,7 +15,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            GetNoteHeader();
+            GetCategoryNames();
         }
         static void GetAllNoteHeaders()
         {
@@ -27,6 +30,15 @@ namespace ConsoleUI
             IEntityRepository<Note> noteDal = new EfNoteDal();
             var note = noteDal.Get(x => x.Header.Equals("MyTestNote"));
             Console.WriteLine(note.Header);
+        }
+        static void GetCategoryNames()
+        {
+            ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
+            List<string> categoryNames = categoryService.GetCategoryNames().Data;
+            foreach (var item in categoryNames)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
