@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
+using DataAccess.Abstract;
+using Core.DataAccess;
 
 namespace ConsoleUI
 {
@@ -10,15 +12,21 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            NotebookDBContext notebookDBContext = new NotebookDBContext();
-            var note = notebookDBContext.Notes.Include(x => x.Category).ToList();
-            foreach (var item in note)
+            GetNoteHeader();
+        }
+        static void GetAllNoteHeaders()
+        {
+            IEntityRepository<Note> noteDal = new EfNoteDal();
+            foreach (var item in noteDal.GetAll())
             {
                 Console.WriteLine(item.Header);
-                Console.WriteLine(item.Content);
-                Console.WriteLine(item.Category.Name);
-                Console.WriteLine(item.CreatedDate);
             }
+        }
+        static void GetNoteHeader()
+        {
+            IEntityRepository<Note> noteDal = new EfNoteDal();
+            var note = noteDal.Get(x => x.Header.Equals("MyTestNote"));
+            Console.WriteLine(note.Header);
         }
     }
 }
