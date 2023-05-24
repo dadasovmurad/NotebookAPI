@@ -20,14 +20,14 @@ namespace Business.Concrete
             _noteDal = noteDal;
         }
 
-        public IDataResult<Note> Get(Expression<Func<Note, bool>> predicate)
+        public IDataResult<List<Note>> GetAll()
         {
-            return new SuccessDataResult<Note>(_noteDal.Get(predicate));
+            return new SuccessDataResult<List<Note>>(_noteDal.GetAll());
         }
 
-        public IDataResult<List<Note>> GetAll(Expression<Func<Note, bool>> filter = null)
+        public IDataResult<Note> GetById(long id)
         {
-            return new SuccessDataResult<List<Note>>(_noteDal.GetAll(filter));
+            return new SuccessDataResult<Note>(_noteDal.Get(x=>x.Id==id));
         }
     }
 }

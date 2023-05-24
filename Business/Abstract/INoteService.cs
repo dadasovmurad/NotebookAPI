@@ -11,7 +11,7 @@ namespace Business.Abstract
 {
     public interface INoteService
     {
-        IDataResult<List<Note>> GetAll(Expression<Func<Note, bool>> filter);
-        IDataResult<Note> Get(Expression<Func<Note, bool>> filter);
+        IDataResult<List<Note>> GetAll();
+        IDataResult<Note> GetById(long id);
     }
 }
