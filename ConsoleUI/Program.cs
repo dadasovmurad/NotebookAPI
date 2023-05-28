@@ -34,7 +34,7 @@ namespace ConsoleUI
         static void GetCategoryNames()
         {
             ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
-            List<string> categoryNames = categoryService.GetCategoryNames().Data;
+            List<string> categoryNames = categoryService.GetNames().Data;
             foreach (var item in categoryNames)
             {
                 Console.WriteLine(item);

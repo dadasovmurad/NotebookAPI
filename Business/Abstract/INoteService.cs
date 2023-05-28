@@ -13,5 +13,8 @@ namespace Business.Abstract
     {
         IDataResult<List<Note>> GetAll();
         IDataResult<Note> GetById(long id);
+        IResult Add(Note note);
+        IResult Delete(Note note);
+        IResult Update(Note note);
     }
 }

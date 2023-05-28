@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,6 +21,18 @@ namespace Business.Concrete
             _noteDal = noteDal;
         }
 
+        public IResult Add(Note note)
+        {
+            _noteDal.Add(note);
+            return new Result(true, Messages.Added);
+        }
+
+        public IResult Delete(Note note)
+        {
+            _noteDal.Delete(note);
+            return new Result(true, Messages.Deleted);
+        }
+
         public IDataResult<List<Note>> GetAll()
         {
             return new SuccessDataResult<List<Note>>(_noteDal.GetAll());
@@ -27,7 +40,13 @@ namespace Business.Concrete
 
         public IDataResult<Note> GetById(long id)
         {
-            return new SuccessDataResult<Note>(_noteDal.Get(x=>x.Id==id));
+            return new SuccessDataResult<Note>(_noteDal.Get(x => x.Id == id));
+        }
+
+        public IResult Update(Note note)
+        {
+            _noteDal.Update(note);
+            return new Result(true, Messages.Updated);
         }
     }
 }

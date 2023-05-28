@@ -10,8 +10,10 @@ namespace Business.Abstract
 {
     public interface ICategoryService
     {
+        IDataResult<List<Category>> GetAll();
+        IDataResult<List<string>> GetNames();
         IResult Add(Category category);
-        IDataResult<List<Category>> GetCategories();
-        IDataResult<List<string>> GetCategoryNames();
+        IResult Delete(Category note);
+        IResult Update(Category note);
     }
 }

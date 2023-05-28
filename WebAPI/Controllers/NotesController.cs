@@ -16,12 +16,14 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            return Ok(_noteService.GetAll());
+            var result = _noteService.GetAll();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpGet("getbyid")]
         public IActionResult GetById(long id)
         {
-            return Ok(_noteService.GetById(id));
+            var result = _noteService.GetById(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
 }

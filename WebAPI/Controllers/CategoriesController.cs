@@ -17,17 +17,32 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(Category category)
         {
-            return Ok(_categoryService.Add(category));
+            var result = _categoryService.Add(category);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpDelete("delete")]
+        public IActionResult Delete(Category category)
+        {
+            var result = _categoryService.Delete(category);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPut("update")]
+        public IActionResult Update(Category category)
+        {
+            var result = _categoryService.Update(category);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpGet("getall")]
-        public IActionResult GetCategories()
+        public IActionResult GetAll()
         {
-            return Ok(_categoryService.GetCategories());
+            var result = _categoryService.GetAll();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpGet("getnames")]
-        public IActionResult GetCategoryNames()
+        public IActionResult GetNames()
         {
-            return Ok(_categoryService.GetCategoryNames());
+            var result = _categoryService.GetNames();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
 }
