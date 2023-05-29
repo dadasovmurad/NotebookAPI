@@ -12,9 +12,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public NoteValidator()
         {
-            base.RuleFor(x=>x.Header).NotEmpty().MaximumLength(50);
-            base.RuleFor(x=>x.Content).NotEmpty().MaximumLength(500);
-            base.RuleFor(x => x.CreatedDate).NotEmpty();
+            base.RuleFor(x=>x.Header).NotNull().NotEmpty().MaximumLength(50);
+            base.RuleFor(x=>x.Content).NotNull().NotEmpty().MaximumLength(500);
+            base.RuleFor(x => x.CreatedDate).NotNull().NotEmpty();
         }
     }
 }

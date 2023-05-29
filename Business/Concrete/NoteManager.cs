@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,14 +26,19 @@ namespace Business.Concrete
         [ValidationAspect(typeof(NoteValidator))]
         public IResult Add(Note note)
         {
-            _noteDal.Add(note);
-            return new Result(true, Messages.Added);
+            var businessResult = BusinessRules.Run(CheckLastCreatedNoteDifference());
+            if (businessResult is null)
+            {
+                _noteDal.Add(note);
+                return new SuccessResult(Messages.Added);
+            }
+            return new ErrorResult(businessResult.Message);
         }
 
         public IResult Delete(Note note)
         {
             _noteDal.Delete(note);
-            return new Result(true, Messages.Deleted);
+            return new SuccessResult(Messages.Deleted);
         }
 
         public IDataResult<List<Note>> GetAll()
@@ -44,11 +50,20 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Note>(_noteDal.Get(x => x.Id == id));
         }
-
+        [ValidationAspect(typeof(NoteValidator))]
         public IResult Update(Note note)
         {
             _noteDal.Update(note);
-            return new Result(true, Messages.Updated);
+            return new SuccessResult(Messages.Updated);
+        }
+        private IResult CheckLastCreatedNoteDifference()
+        {
+            Note lastData = _noteDal.GetLastNote().Data;
+            DateTime? differenceDate = lastData?.CreatedDate.AddMinutes(2);
+            if (differenceDate is null || differenceDate <= DateTime.Now)
+                return new SuccessResult();
+            else
+                return new ErrorResult(Messages.ErrorDifferenceNote);
         }
     }
 }
