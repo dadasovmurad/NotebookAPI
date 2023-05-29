@@ -32,7 +32,7 @@ namespace Business.Concrete
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
-            return new Result(true, Messages.Added);
+            return new Result(true, Messages.Added);    
         }
         public IResult Update(Category category)
         {

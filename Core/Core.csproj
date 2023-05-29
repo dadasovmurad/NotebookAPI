@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
   </ItemGroup>
 

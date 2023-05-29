@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,12 @@ namespace WebAPI.Controllers
         public IActionResult GetById(long id)
         {
             var result = _noteService.GetById(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+        [HttpPost("add")]
+        public IActionResult Add(Note note)
+        {
+            var result = _noteService.Add(note);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
