@@ -8,6 +8,7 @@ using Core.DataAccess;
 using Business.Abstract;
 using Business.Concrete;
 using System.Collections.Generic;
+using Core.Utilities.Security.Hashing;
 
 namespace ConsoleUI
 {
@@ -15,7 +16,12 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            GetCategoryNames();
+            string password = "hello world";
+            byte[] passwordHash;
+            byte[] passwordSalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            bool verify = HashingHelper.VerifyPasswordHash(password, passwordHash, passwordSalt);
+            Console.WriteLine(verify);
         }
         static void GetAllNoteHeaders()
         {
