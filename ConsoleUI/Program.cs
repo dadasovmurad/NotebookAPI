@@ -20,7 +20,7 @@ namespace ConsoleUI
             byte[] passwordHash;
             byte[] passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            bool verify = HashingHelper.VerifyPasswordHash(password, passwordHash, passwordSalt);
+            bool verify = HashingHelper.VerifyPasswordHash(password+"SAD", passwordHash, passwordSalt);
             Console.WriteLine(verify);
         }
         static void GetAllNoteHeaders()
