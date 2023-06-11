@@ -17,10 +17,9 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             string password = "hello world";
-            byte[] passwordHash;
-            byte[] passwordSalt;
+            byte[] passwordHash,passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            bool verify = HashingHelper.VerifyPasswordHash(password+"SAD", passwordHash, passwordSalt);
+            bool verify = HashingHelper.VerifyPasswordHash(password + "sad", passwordHash, passwordSalt);
             Console.WriteLine(verify);
         }
         static void GetAllNoteHeaders()

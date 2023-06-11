@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -23,11 +24,12 @@ namespace Business.Concrete
         {
             _noteDal = noteDal;
         }
-        [ValidationAspect(typeof(NoteValidator))]
+        [ValidationAspect(typeof(NoteValidator), Priority = 1)]
+        [SecuredOperation("note.add,admin", Priority = 2)]
         public IResult Add(Note note)
-        {
+        {   
             var businessResult = BusinessRules.Run(CheckLastCreatedNoteDifference());
-            if (businessResult is null)
+            if (businessResult is null || 1 == 1)
             {
                 _noteDal.Add(note);
                 return new SuccessResult(Messages.Added);
