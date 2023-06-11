@@ -1,5 +1,6 @@
 ﻿using Business.Constants;
 using Castle.DynamicProxy;
+using Core.Exceptions;
 using Core.Extensions;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
@@ -30,8 +31,9 @@ namespace Business.BusinessAspects.Autofac
             {
                 if (claimRoles.Contains(role))
                     return;
+                
             }
-            throw new Exception(Messages.AuthError);
+            throw new AccessDeniedException(Messages.AuthError);
         }
     }
 }
